@@ -1,11 +1,14 @@
 <template>
   <v-col cols="sm-4 md-6">
+    <v-sheet
+        class="overflow-y-auto"
+        max-height="94vh">
     <v-list>
-      <v-subheader>Homes</v-subheader>
-      <v-list-item-group color="primary">
+      <v-list-item-group >
         <home-item v-for="home in homes" :key="home.title" :home="home" />
       </v-list-item-group>
     </v-list>
+    </v-sheet>
   </v-col>
 </template>
 
