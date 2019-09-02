@@ -14,7 +14,7 @@
                 <v-list-item-subtitle v-text="home.address"></v-list-item-subtitle>
             </div>
             <div class="actions">
-                <v-rating :empty-icon="start" :value="home.rating" dense :size="20" background-color="orange lighten-3" color="orange"></v-rating>
+                <v-rating :value="home.rating" dense :size="20" background-color="orange lighten-3" color="orange"></v-rating>
                 <v-btn text icon class="location"
                        @click="home_clicked(home)"
                        color="red">
@@ -23,11 +23,17 @@
             </div>
         </div>
         <div class="price">
-            <ul>
+            <ul v-if="home.prices">
+                <li>{{ home.prices.day ? home.prices.day : '-N.A-' }}$ / day</li>
+                <li>{{ home.prices.week ? home.prices.week : '-N.A-' }}$ / week</li>
+                <li>{{ home.prices.monthly ? home.prices.monthly : '-N.A-' }}$ / month</li>
+            </ul>
+            <ul v-else >
                 <li>{{ home.prices ? home.prices.day : '-N.A-' }}$ / day</li>
                 <li>{{ home.prices ? home.prices.week : '-N.A-' }}$ / week</li>
                 <li>{{ home.prices ? home.prices.monthly : '-N.A-' }}$ / month</li>
             </ul>
+
         </div>
     </v-list-item>
 </template>

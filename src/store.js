@@ -7,11 +7,11 @@ export default new Vuex.Store({
   state: {
     homes: [
       {
-        title: "lorem",
-        address: "test",
+        title: "квартира",
+        address: "просп. Соборный, 139А",
         coordinates: {
-          lat: 47.82924,
-          lng: 35.13486
+          lat: 47.839372,
+          lng: 35.135646
         },
         prices: {
           day: 50,
@@ -40,8 +40,13 @@ export default new Vuex.Store({
         title: "lorem 3",
         address: "test 3",
         coordinates: {
-          lat: 47.83125,
-          lng: 35.16686
+          lat: 50.83125,
+          lng: 60.16686
+        },
+        prices: {
+          day: 50,
+          week: 500,
+          monthly: 99999,
         },
         image: require ("./assets/house3.jpg"),
         rating: 3

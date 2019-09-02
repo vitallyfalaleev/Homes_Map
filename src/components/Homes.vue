@@ -3,6 +3,7 @@
     <v-sheet
         class="overflow-y-auto"
         max-height="94vh">
+    <Filters />
     <v-list>
       <v-list-item-group >
         <home-item v-for="home in homes" :key="home.title" :home="home" />
@@ -14,9 +15,10 @@
 
 <script>
   import HomeItem from "./HomeItem";
+  import Filters from "./Filter";
   export default {
     name: 'Homes',
-    components: {HomeItem},
+    components: {HomeItem, Filters},
     comments: {
       HomeItem
     },
