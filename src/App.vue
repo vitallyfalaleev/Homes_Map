@@ -18,7 +18,9 @@
       id="scrolling"
       class="overflow-y-auto"
       max-height="100vh-64px">
-        <router-view/>
+        <v-content>
+          <router-view/>
+        </v-content>
     </v-sheet>
   </v-app>
 </template>

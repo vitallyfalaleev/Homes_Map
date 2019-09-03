@@ -60,9 +60,7 @@
                 this.$store.dispatch("chose_home", home)
             },
             showOption(option){
-                console.log(option)
                 let item = this.items.find(e => e.option === option);
-                if(item) console.log(item)
                 return item ? item.icon : ''
             }
         },

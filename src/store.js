@@ -10,9 +10,10 @@ export default new Vuex.Store({
         id: 1,
         title: "квартира",
         address: "просп. Соборный, 139А",
+        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium asperiores, aut consequatur culpa debitis dicta eaque esse illo itaque libero nesciunt obcaecati officia, praesentium quasi quibusdam repellat saepe. Id, modi.",
         coordinates: {
-          lat: 47.839372,
-          lng: 35.135646
+          lat: 47.839225,
+          lng: 35.13718
         },
         prices: {
           day: 50,
@@ -20,6 +21,11 @@ export default new Vuex.Store({
           monthly: 99999,
         },
         image: require ("./assets/house.jpg"),
+        images: {
+          1: require ("./assets/house.jpg"),
+          2: require ("./assets/house2.jpg"),
+          3: require ("./assets/house3.jpg"),
+        },
         rating: 5,
         options: {
           wifi: true,
@@ -140,13 +146,17 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    homes(state) {
+    homes: state => {
       return state.homes;
     },
-    chosen_home(state) {
+    home: state => id => {
+      id = parseInt(id);
+      return state.homes.find(home => home.id === id);
+    },
+    chosen_home: state => {
       return state.chosen_home
     },
-    items(state){
+    items: state => {
       return state.items
     }
   }
