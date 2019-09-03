@@ -3,14 +3,14 @@
     <v-toolbar
         flat
         color="transparent"
+        @click="show = !show"
     >
       <v-toolbar-title>Filters</v-toolbar-title>
       <div class="flex-grow-1"></div>
       <v-btn
           icon
-          @click="show = !show"
       >
-        <v-icon>mdi-magnify</v-icon>
+        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
       </v-btn>
     </v-toolbar>
     <v-container class="py-0">
@@ -21,7 +21,6 @@
             class="shrink"
         >
           <v-chip
-              :disabled="loading"
               close
               @click:close="selected.splice(i, 1)"
           >
@@ -53,7 +52,7 @@
             </v-col>
           </v-row>
           <v-row align="center" justify="start">
-            <v-col cols="12">
+            <v-col class="mb-5" cols="12">
               <v-btn-toggle v-model="time" mandatory>
                 <v-btn text block="true" value="day">
                   Day
@@ -68,7 +67,9 @@
             </v-col>
             <v-col cols="12">
               <v-range-slider
-                  v-model="value"
+                  v-model="price"
+                  :min="minPrice"
+                  :max="maxPrice"
                   thumb-label="always"
               ></v-range-slider>
             </v-col>
@@ -87,7 +88,6 @@
             >
               <v-list-item-avatar>
                 <v-icon
-                    :disabled="loading"
                     v-text="item.icon"
                 ></v-icon>
               </v-list-item-avatar>
@@ -104,49 +104,27 @@
     name: 'Filters',
     data: () => (
         {
-          items: [
-            {
-              text: 'Wi-Fi',
-              icon: 'mdi-wifi',
-            },
-            {
-              text: 'Kitchen',
-              icon: 'mdi-food-fork-drink',
-            },
-            {
-              text: 'Laundry',
-              icon: 'mdi-washing-machine',
-            },
-            {
-              text: 'Heating',
-              icon: 'mdi-home-thermometer',
-            },
-            {
-              text: 'Parking',
-              icon: 'mdi-parking',
-            },
-            {
-              text: 'Smoking',
-              icon: 'mdi-smoking',
-            },
-            {
-              text: 'Dryer',
-              icon: 'mdi-tumble-dryer',
-            },
-            {
-              text: 'Fully Furnished',
-              icon: 'mdi-bed-king',
-            },
-          ],
           search: '',
           selected: [],
-          value: [0, 600],
-          show: true,
+          price: [5, 600],
+          minPrice: 0,
+          maxPrice: 0,
+          show: false,
           time: "day"
         }
     ),
-
+    beforeMount(){
+      this.minPrice = this.price[0];
+      this.maxPrice = this.price[1];
+      this.timeChose()
+      this.$nextTick(() => {
+        this.time;
+      });
+    },
     computed: {
+      items(){
+        return this.$store.getters.items
+      },
       allSelected () {
         return this.selected.length === this.items.length
       },
@@ -170,6 +148,23 @@
 
         return selections
       },
+      timeChose () {
+        if(this.time === "day"){
+          this.price = [5, 10];
+          this.minPrice = this.price[0];
+          this.maxPrice = this.price[1];
+        }
+        else if( this.time === "week"){
+          this.price = [50, 100]
+          this.minPrice = this.price[0];
+          this.maxPrice = this.price[1];
+        }
+        else if( this.time === "month"){
+          this.price = [500, 1000]
+          this.minPrice = this.price[0];
+          this.maxPrice = this.price[1];
+        }
+      },
     },
 
     watch: {
@@ -177,15 +172,7 @@
         this.search = ''
       },
       time(){
-        if(this.time === "day"){
-          this.value = [5, 10]
-        }
-        else if( this.time === "week"){
-          this.value = [50, 100]
-        }
-        else if( this.time === "month"){
-          this.value = [500, 1000]
-        }
+        this.timeChose()
       },
     }
   }

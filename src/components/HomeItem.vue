@@ -1,5 +1,6 @@
 <template>
-    <v-list-item :ripple="false">
+    <v-list-item :ripple="false"
+        :to="{ name: 'show', params: { id: home.id }}">
                 <v-list-item-avatar tile
                     :height="150"
                     :width="200"
@@ -12,9 +13,17 @@
             <div class="house-info">
                 <v-list-item-title v-text="home.title"></v-list-item-title>
                 <v-list-item-subtitle v-text="home.address"></v-list-item-subtitle>
+                <v-chip v-if="option === true" v-for="(option, key) in options"
+                        small
+                        outlined>
+                    <v-icon small
+                         >
+                        {{showOption(key)}}
+                    </v-icon>
+                </v-chip>
             </div>
             <div class="actions">
-                <v-rating :value="home.rating" dense :size="20" background-color="orange lighten-3" color="orange"></v-rating>
+                <v-rating readonly :value="home.rating" dense :size="20" background-color="orange lighten-3" color="orange"></v-rating>
                 <v-btn text icon class="location"
                        @click="home_clicked(home)"
                        color="red">
@@ -41,9 +50,28 @@
 <script>
     export default {
         props: [ "home" ],
+        data(){
+            return{
+                options: []
+            }
+        },
         methods: {
             home_clicked(home){
                 this.$store.dispatch("chose_home", home)
+            },
+            showOption(option){
+                console.log(option)
+                let item = this.items.find(e => e.option === option);
+                if(item) console.log(item)
+                return item ? item.icon : ''
+            }
+        },
+        mounted() {
+            this.options = this.home.options
+        },
+        computed: {
+            items(){
+                return this.$store.getters.items
             }
         }
     };

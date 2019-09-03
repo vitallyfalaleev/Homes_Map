@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     homes: [
       {
+        id: 1,
         title: "квартира",
         address: "просп. Соборный, 139А",
         coordinates: {
@@ -19,9 +20,20 @@ export default new Vuex.Store({
           monthly: 99999,
         },
         image: require ("./assets/house.jpg"),
-        rating: 5
+        rating: 5,
+        options: {
+          wifi: true,
+          kitchen: true,
+          laundry: true,
+          heating: true,
+          parking: true,
+          smoking: true,
+          dryer: true,
+          furnished: true
+        }
       },
       {
+        id: 2,
         title: "lorem 2",
         address: "test 2",
         coordinates: {
@@ -34,9 +46,20 @@ export default new Vuex.Store({
           monthly: 5000,
         },
         image: require ("./assets/house2.jpg"),
-        rating: 1
+        rating: 1,
+        options: {
+          wifi: true,
+          kitchen: false,
+          laundry: true,
+          heating: false,
+          parking: true,
+          smoking: false,
+          dryer: true,
+          furnished: true
+        }
       },
       {
+        id: 3,
         title: "lorem 3",
         address: "test 3",
         coordinates: {
@@ -49,10 +72,62 @@ export default new Vuex.Store({
           monthly: 99999,
         },
         image: require ("./assets/house3.jpg"),
-        rating: 3
+        rating: 3,
+        options: {
+          wifi: true,
+          kitchen: false,
+          laundry: false,
+          heating: false,
+          parking: true,
+          smoking: true,
+          dryer: false,
+          furnished: true
+        }
       }
     ],
-    chosen_home: null
+    chosen_home: null,
+    items: [
+      {
+        text: 'Wi-Fi',
+        icon: 'mdi-wifi',
+        option: 'wifi'
+      },
+      {
+        text: 'Kitchen',
+        icon: 'mdi-food-fork-drink',
+        option: 'kitchen'
+      },
+      {
+        text: 'Laundry',
+        icon: 'mdi-washing-machine',
+        option: 'laundry'
+      },
+      {
+        text: 'Heating',
+        icon: 'mdi-home-thermometer',
+        option: 'heating'
+      },
+      {
+        text: 'Parking',
+        icon: 'mdi-parking',
+        option: 'parking'
+      },
+      {
+        text: 'Smoking',
+        icon: 'mdi-smoking',
+        option: 'smoking'
+      },
+      {
+        text: 'Dryer',
+        icon: 'mdi-tumble-dryer',
+        option: 'dryer'
+      },
+      {
+        text: 'Fully Furnished',
+        icon: 'mdi-bed-king',
+        option: 'furnished'
+      },
+    ],
   },
   mutations: {
     chose_home( state, data ){
@@ -70,6 +145,9 @@ export default new Vuex.Store({
     },
     chosen_home(state) {
       return state.chosen_home
+    },
+    items(state){
+      return state.items
     }
   }
 })
